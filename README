@@ -1,0 +1,16 @@
+NAME
+    CPAN::Local::Plugin::DistroList - Populate a mirror with a list of
+    distributions
+
+VERSION
+    version 0.001
+
+AUTHOR
+    Peter Shangov <pshangov@yahoo.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2012 by Venda, Inc..
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
