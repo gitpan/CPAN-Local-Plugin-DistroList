@@ -1,6 +1,6 @@
 package CPAN::Local::Plugin::DistroList;
 {
-  $CPAN::Local::Plugin::DistroList::VERSION = '0.001';
+  $CPAN::Local::Plugin::DistroList::VERSION = '0.002';
 }
 
 # ABSTRACT: Populate a mirror with a list of distributions
@@ -8,7 +8,6 @@ package CPAN::Local::Plugin::DistroList;
 use strict;
 use warnings;
 
-use File::Path qw(make_path);
 use Path::Class qw(file dir);
 use File::Temp;
 use URI;
@@ -112,7 +111,10 @@ sub gather
     return @distros;
 }
 
+sub requires_distribution_roles { 'FromURI' }
+
 __PACKAGE__->meta->make_immutable;
+
 
 __END__
 =pod
@@ -123,7 +125,79 @@ CPAN::Local::Plugin::DistroList - Populate a mirror with a list of distributions
 
 =head1 VERSION
 
-version 0.001
+version 0.002
+
+=head1 SYNOPSIS
+
+In C<cpanlocal.ini>:
+
+  " Add distros from backan
+  [DistroList / Backpan]
+  list   = backpan.distrolist
+  prefix = http://backpan.perl.org/authors/id/
+  cache  = /home/user/backpan/cache
+
+  " Add distros from filesystem
+  [DistroList / Local]
+  list     = local.distrolist
+  prefix   = /home/user/distros/
+  local    = 1
+  authorid = MYCOMPANY
+
+In <backpan.distrolist>:
+
+  A/AB/ABH/Apache-DBI-0.94.tar.gz
+  A/AB/ABIGAIL/Regexp-Common-1.30.tar.gz
+  A/AB/ABW/Class-Base-0.03.tar.gz
+  ...
+
+In <local.distrolist>:
+
+  My-Great-App-001.tar.gz
+  My-Great-App-002.tar.gz
+  ...
+
+Then simply update the repo from the command line:
+
+  % lpan update
+
+=head1 DESCRIPTION
+
+This plugin allows you to add distributions from a list of filenames or uris.
+The list is read from a configuration file containing one distribution name
+per line.
+
+Implements L<CPAN::Local::Role::Gather>.
+
+=head1 ATTRIBUTES
+
+=head2 list
+
+Required. Path to the configuration file that contains the list of
+distributions. The configuration file must contain absolute paths or uris,
+unless L</prefix> is specified.
+
+=head2 prefix
+
+Optional. String to prepend to each line in the configuration file. This is
+commonly the uri of a CPAN mirror or the path to a local folder containing
+distributions. Note that the prefix is simply concatenated with each line in
+the configuration file, so be careful not to omit the trailing slash.
+
+=head2 cache
+
+Optional. Directory where to download a remote distribution before adding it
+to the mirror. If a distribtuion from the configuartion file is already in the
+cache, it will not be downloaded again. Ignored when L</local> is used.
+
+=head2 local
+
+Optional. Instructs the plugin that the distributions live in the local
+filesystem, so no attempt will be made to download or cache them.
+
+=head2 authorid
+
+Optional. Author id to use when injecting distributions from this list.
 
 =head1 AUTHOR
 

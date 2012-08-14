@@ -23,7 +23,6 @@ requires:
   CPAN::DistnameInfo: 0
   CPAN::Local::Plugin: 0
   CPAN::Local::Role::Gather: 0
-  File::Path: 0
   File::Temp: 0
   LWP::Simple: 0
   Moose: 0
@@ -35,4 +34,4 @@ requires:
   warnings: 0
 resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=CPAN-Local-Plugin-DistroList
-version: 0.001
+version: 0.002

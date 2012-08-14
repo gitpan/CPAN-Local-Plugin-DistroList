@@ -31,7 +31,6 @@ my %WriteMakefileArgs = (
     "CPAN::DistnameInfo" => 0,
     "CPAN::Local::Plugin" => 0,
     "CPAN::Local::Role::Gather" => 0,
-    "File::Path" => 0,
     "File::Temp" => 0,
     "LWP::Simple" => 0,
     "Moose" => 0,
@@ -42,7 +41,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.001",
+  "VERSION" => "0.002",
   "test" => {
     "TESTS" => "t/*.t"
   }
