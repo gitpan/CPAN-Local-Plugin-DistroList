@@ -1,6 +1,6 @@
 package CPAN::Local::Plugin::DistroList;
 {
-  $CPAN::Local::Plugin::DistroList::VERSION = '0.002';
+  $CPAN::Local::Plugin::DistroList::VERSION = '0.003';
 }
 
 # ABSTRACT: Populate a mirror with a list of distributions
@@ -125,33 +125,33 @@ CPAN::Local::Plugin::DistroList - Populate a mirror with a list of distributions
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 
 In C<cpanlocal.ini>:
 
-  " Add distros from backan
+  ; Add distros from backan
   [DistroList / Backpan]
   list   = backpan.distrolist
   prefix = http://backpan.perl.org/authors/id/
   cache  = /home/user/backpan/cache
 
-  " Add distros from filesystem
+  ; Add distros from filesystem
   [DistroList / Local]
   list     = local.distrolist
   prefix   = /home/user/distros/
   local    = 1
   authorid = MYCOMPANY
 
-In <backpan.distrolist>:
+In C<backpan.distrolist>:
 
   A/AB/ABH/Apache-DBI-0.94.tar.gz
   A/AB/ABIGAIL/Regexp-Common-1.30.tar.gz
   A/AB/ABW/Class-Base-0.03.tar.gz
   ...
 
-In <local.distrolist>:
+In C<local.distrolist>:
 
   My-Great-App-001.tar.gz
   My-Great-App-002.tar.gz
@@ -167,7 +167,13 @@ This plugin allows you to add distributions from a list of filenames or uris.
 The list is read from a configuration file containing one distribution name
 per line.
 
-Implements L<CPAN::Local::Role::Gather>.
+=head1 IMPLEMENTS
+
+=over
+
+=item L<CPAN::Local::Role::Gather>
+
+=back
 
 =head1 ATTRIBUTES
 
@@ -180,9 +186,10 @@ unless L</prefix> is specified.
 =head2 prefix
 
 Optional. String to prepend to each line in the configuration file. This is
-commonly the uri of a CPAN mirror or the path to a local folder containing
+commonly the base uri of a CPAN mirror or the path to a local folder containing
 distributions. Note that the prefix is simply concatenated with each line in
-the configuration file, so be careful not to omit the trailing slash.
+the configuration file, so be careful not to omit the trailing slash where
+needed.
 
 =head2 cache
 

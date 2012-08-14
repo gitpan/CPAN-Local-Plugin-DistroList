@@ -34,4 +34,4 @@ requires:
   warnings: 0
 resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=CPAN-Local-Plugin-DistroList
-version: 0.002
+version: 0.003
